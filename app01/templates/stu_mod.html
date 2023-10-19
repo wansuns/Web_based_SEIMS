@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block css %}
+    <style>
+    .bgbodymod{
+        background-image: url('{% static 'images/bg3.png' %}');
+    }
+    </style>
+
+
+<body class="bgbodymod">
+{% endblock %}
+{% block content %}
+    <h2> 修改信息</h2>
+    <form class="form-inline" method="post"  novalidate>
+    {% csrf_token %}
+    <table class="table table-bordered">
+        {% for field in form %}
+    <tr>
+    <td>{{ field.label }}</td>
+        <td>{{ field }}</td>
+
+    <td>{{ field.errors.0 }}</td>
+
+    </tr>
+         {% endfor %}
+
+    </table>
+    <input type="submit" value="修改">
+    </form>
+
+{% endblock %}
+</body>

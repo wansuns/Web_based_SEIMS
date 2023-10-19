@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block css %}
+    <style>
+    #th1,#th2,#th3,#th4,#th5,#th6,#th7,#th8,#th9,#th10,#th11,#th12,
+    #td1,#td2,#td3,#td4,#td5,#td6,#td7,#td8,#td9,#td10,#td11,#td12 {
+        text-align: center;
+        color: #2aabd2;
+    }
+    </style>
+ {% endblock %}
+{% block content %}
+    <body style="background-image: url('{% static 'images/bg3.png' %}');">
+<div style="margin-top: 20px">
+    <a href="{% url 'sadd' %}">
+        <li>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          <span class="glyphicon-class">增加学生</span>
+        </li>
+    </a>
+    <a href="{% url 'search' %}">
+        <li>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          <span class="glyphicon-class">查询学生信息</span>
+        </li>
+    </a>
+  <a href="{% url 'model' %}">
+        <li>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          <span class="glyphicon-class">模型测试</span>
+        </li>
+    </a>
+ <a href="{% url 'course' %}">
+        <li>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          <span class="glyphicon-class">课程查询</span>
+        </li>
+    </a>
+</div>
+    <table class="table table-hover">
+        <thead>
+        <th id="th1">编号</th>
+        <th id="th2">学号</th>
+        <th id="th3">姓名</th>
+        <th id="th4">年龄</th>
+        <th id="th5">性别</th>
+        <th id="th6">地址</th>
+        <th id="th7">电话</th>
+        <th id="th8">电子邮件</th>
+        <th id="th9">紧急联系人姓名</th>
+        <th id="th10">紧急联系人电话</th>
+        <th id="th11">成绩</th>
+        <th id="th12">操作</th>
+        </thead>
+        <tbody>
+        {% for student in page_obj %}
+            <tr>
+                <td id="td1">{{ student.id }}</td>
+                <td id="td2">{{ student.sid }}</td>
+                <td id="td3">{{ student.name }}</td>
+                <td id="td4">{{ student.age }}</td>
+                <td id="td5">{{ student.gender }}</td>
+                <td id="td6">{{ student.address }}</td>
+                <td id="td7">{{ student.phone }}</td>
+                <td id="td8">{{ student.email }}</td>
+                <td id="td9">{{ student.parent_name }}</td>
+                <td id="td10">{{ student.parent_phone }}</td>
+                <td id="td11">{{ student.score }}</td>
+                <td id="td12"><a href="{% url 'smod' student.sid %}">修改</a> <a href="{% url 'sdel' student.sid%}">删除</a> </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="11">暂无学生。</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; 第一页</a>
+                <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+            {% endif %}
+
+            <span class="current-page">
+                当前第{{ page_obj.number }}页/一共有{{ page_obj.paginator.num_pages }}页
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">下一页</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">最后一页 &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}
+</body>

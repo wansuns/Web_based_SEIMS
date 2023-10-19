@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block css %}
+    <style>
+        body {
+            background: lightblue;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 30px;
+            padding-top: 30px;
+        }
+
+        label, input {
+            font-size: 20px;
+            /* border-top: 20px; padding-top: 20px; 内边距 */
+            margin-top: 15px; /* 外边距 */
+            width: 180px; /* 输入框长度 */
+        }
+
+        button {
+            /* 控制按钮位置大小及间距 */
+            font-size: 25px;
+            margin-left: 60px;
+            margin-right: -20px;
+            /* border-radius: 10px; */
+            color: deepskyblue;
+        }
+    </style>
+{% endblock %}
+
+<body>
+    {% block content %}
+        <h1>请在下列信息栏填入学生的基本信息</h1><br>
+        <div>
+            <form id="StuAdd" action="/stu_add/" method="post">
+                {% csrf_token %}
+
+                <label>学号:</label>
+                <input type="text" name="sid" required autofocus><br>
+                <label>姓名:</label>
+                <input type="text" name="name" required autofocus><br>
+                <label>年龄:</label>
+                <input type="text" name="age" required autofocus><br>
+                <label>性别:</label>
+                <input type="text" name="gender" required autofocus><br>
+                <label>地址:</label>
+                <input type="text" name="address" required autofocus><br>
+                <label>电话:</label>
+                <input type="text" name="phone" required autofocus><br>
+                <label>邮箱:</label>
+                <input type="text" name="email" required autofocus><br>
+                <label>紧急联系人姓名：</label>
+                <input type="text" name="parent_name" required autofocus><br>
+                <label>紧急联系人电话:</label>
+                <input type="text" name="parent_phone" required autofocus><br>
+                <label>成绩:</label>
+                <input type="text" name="score" required autofocus><br>
+            </form>
+            <p style="font-size: 20px; color: red; padding-left: 60px">
+                {% if err %}
+                    {{ err }}
+                {% endif %}
+            </p>
+            <p style="padding-left: 90px;font-size: 20px">
+                {% if success %}
+                    {{ success }}
+                {% endif %}
+            </p>
+        </div>
+        <div>
+            </p>
+            <button type="reset" form="StuAdd">清空</button>
+            <button type="submit" form="StuAdd">提交</button><br><br>
+            <a href="{% url 'slist' %}">
+                <button style="width: 180px">返回主页面</button>
+            </a>
+        </div>
+    {% endblock %}
+</body>

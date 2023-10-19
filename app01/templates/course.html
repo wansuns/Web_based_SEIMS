@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}课程列表{% endblock %}
+
+{% block content %}
+    <body style="
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-image: url('{% static "images/img.png"  %}')">
+    <div class="container">
+        <h1>课程列表</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>课程编号</th>
+                        <th>课程名称</th>
+                        <th>课程分数</th>
+                        <th>学号</th>
+{#                        <th>操作</th>#}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td>{{ course.class_id }}</td>
+                        <td>{{ course.classname }}</td>
+                        <td>{{ course.class_score }}</td>
+                        <td>{{ course.sid }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+    </body>
+{% endblock %}

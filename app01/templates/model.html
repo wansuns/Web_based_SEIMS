@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>model test</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            place-items: center;
+            height: 100vh;
+        }
+        .result-img {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body style="background-image: url('{% static 'images/it.jpg' %}')">
+  <div class="container">
+    <form enctype="multipart/form-data" action="{% url 'model' %}" method="post">
+      {% csrf_token %}
+      <input type="file" name="image_file" accept="image/*">
+      <button type="submit">人脸识别</button>
+
+    </form>
+
+        <div class="result-img" >
+            {% if result %}
+                <img src="{{ result }}" alt="人脸检测结果">
+            {% endif %}
+        </div>
+  </div>
+</body>
+{#    <button name="continue" type="submit">诗歌续写</button>#}
+{#    <input type="text" name="prompt" placeholder="请输入诗歌续写的开头"/>#}
+{#    <button name="acrostic" type="submit">生成藏头诗</button>#}
+{#    <input type="text" name="head" placeholder="请输入藏头关键字"/>#}
+{#    <div id="poetry-display">{{ display }}</div>#}
+{##}
+{#</div>#}
+</html>

@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block css %}
+    <style>
+        table {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .pagination a:hover:not(.active) {background-color: #ddd;}
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <body style="background-image: url('{% static 'images/bg3.png' %}')">
+    <div>
+        <form method="get" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input type="text" name="item" placeholder="请输入姓名关键字" value="{{ item|default:'' }}">
+            <input type="text" name="query" placeholder="请输入学号" value="{{ query|default:'' }}">
+            <button type="submit" style="color: #2aabd2">查询学生信息</button>
+        </form>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>id</th>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>地址</th>
+                <th>电话</th>
+                <th>电子邮件</th>
+                <th>紧急联系人姓名</th>
+                <th>紧急联系人电话</th>
+                <th>成绩</th>
+            </tr>
+            {% for student in page_obj %}
+                <tr style="color:#e38d13">
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.sid }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.age }}</td>
+                    <td>{{ student.gender }}</td>
+                    <td>{{ student.address }}</td>
+                    <td>{{ student.phone }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.parent_name }}</td>
+                    <td>{{ student.parent_phone }}</td>
+                    <td>{{ student.score }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">< 第一页</a>
+                <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+            {% endif %}
+
+            <span class="current-page">
+                第{{ page_obj.number }}页/共{{ page_obj.paginator.num_pages }}页
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">下一页</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">最后一页 ></a>
+            {% endif %}
+           <a href="{% url 'slist' %}">返回</a>
+        </span>
+    </div>
+
+</body>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block css %}
+<style>
+    .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+    .bgbody1{
+        background-image: url("{% static 'images/bg1.png' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+</style>
+<body class="bgbody1">
+{% endblock %}
+{% block content %}
+<div class="centered">
+    <h3 style="color: #0f0f0f">欢迎进入学生信息管理系统请</h3>
+    <h1><a href="{% url 'login' %}" style="color: red;">登录</a></h1>
+    <h3 style="color: #0f0f0f">以获取更多功能</h3>
+</div>
+{% endblock  %}
+</body>
